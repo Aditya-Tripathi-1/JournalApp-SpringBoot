@@ -1,4 +1,4 @@
-package net.engineeringdigest.journalApp.Entity2;
+package net.engineeringdigest.journalApp.Entity;
 
 
 import lombok.Getter;

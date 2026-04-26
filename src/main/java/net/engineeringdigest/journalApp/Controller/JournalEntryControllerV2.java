@@ -1,7 +1,7 @@
-package net.engineeringdigest.journalApp.Controler;
+package net.engineeringdigest.journalApp.Controller;
 
-import net.engineeringdigest.journalApp.Entity.JournalEntry;
-import net.engineeringdigest.journalApp.Entity2.JournalEntry2;
+import net.engineeringdigest.journalApp.EntityLocal.JournalEntry;
+import net.engineeringdigest.journalApp.Entity.JournalEntry2;
 import net.engineeringdigest.journalApp.Service.JournalEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
