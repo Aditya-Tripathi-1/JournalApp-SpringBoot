@@ -1,4 +1,4 @@
-package net.engineeringdigest.journalApp.Entity;
+package com.springBoot.journalApp.Entity;
 
 
 import lombok.Getter;

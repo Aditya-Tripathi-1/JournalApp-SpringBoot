@@ -34,5 +34,5 @@ build/
 .vscode/
 
 # custom ignore file/classes and folders/packages
-src/main/java/net/engineeringdigest/journalApp/Controller/JournalEntryController.java
+src/main/java/com/springBoot/journalApp/Controller/JournalEntryController.java
 src/main/java/net/engineeringdigest/journalApp/EntityLocal
