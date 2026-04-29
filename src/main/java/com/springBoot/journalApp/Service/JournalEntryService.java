@@ -1,33 +1,53 @@
 package com.springBoot.journalApp.Service;
 
-import com.springBoot.journalApp.Entity.JournalEntry2;
+import com.springBoot.journalApp.Entity.JournalEntry;
+import com.springBoot.journalApp.Entity.User;
 import com.springBoot.journalApp.Repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class JournalEntryService {
 // service package ke ander hm apna business logic likhate h
+
     @Autowired
-
     private JournalEntryRepo journalEntryRepo;
+    @Autowired
+    private UserService userService;
 
-    public void saveEntry(JournalEntry2 journalEntry2) {
-        journalEntryRepo.save(journalEntry2);
+    @Transactional      // ye method ka pura kaam khatm hone pr hi output me ok dega,agr koi bhi work
+    // method ke adar ke nhi ho paya error ki wjh se toh ye jo work hua hoga use bhi rollback kr dega.
+    public void saveEntry(JournalEntry journalEntry, String userName) {
+        try {
+            User user = userService.findByuserName(userName);
+            JournalEntry saved = journalEntryRepo.save(journalEntry);
+            user.getJournalEntries().add(saved);
+            userService.saveEntry(user);
+        } catch (Exception e) {
+            throw new RuntimeException("An error occured while saving entry",e);
+        }
+    }
+    public void saveEntry(JournalEntry journalEntry) {
+        journalEntryRepo.save(journalEntry);
     }
 
-    public List<JournalEntry2> getall() {
+    public List<JournalEntry> getall() {
         return journalEntryRepo.findAll();
     }
 
-    public Optional<JournalEntry2> findbyId(ObjectId id) {
+    public Optional<JournalEntry> findbyId(ObjectId id) {
         return journalEntryRepo.findById(id);
     }
-    public void deletebyId(ObjectId id) {
-         journalEntryRepo.deleteById(id);
+    public void deletebyId(ObjectId id, String userName) {
+        User user = userService.findByuserName(userName);
+        user.getJournalEntries().removeIf(x->x.getId().equals(id));
+        userService.saveEntry(user);
+        journalEntryRepo.deleteById(id);
     }
 
 
