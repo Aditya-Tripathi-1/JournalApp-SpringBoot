@@ -23,7 +23,7 @@ public class User {
     @Id
     private ObjectId id;
     @Indexed(unique = true) // indexed se searching fast hogi aur unique true se unique hoga
-    // lekin ye automatic nhi,automatic krne ke liye  resource me ek property set krni hogi
+    // lekin ye automatic nhi,automatic krne ke liye  resource(application.properties) me ek property set krni hogi
     //  i.e -> spring.data.mongodb.auto-index-creation=true
     @NonNull
     private String userName;
@@ -32,4 +32,6 @@ public class User {
 
     @DBRef  // ye user collections me JournalEntry collection ka ref rakhega
     private List<JournalEntry> journalEntries = new ArrayList<>();
+
+    private List<String> role;
 }
